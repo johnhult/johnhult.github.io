@@ -1,0 +1,25 @@
+h1, h2, h3 {
+	font-weight: normal;
+	text-align: center;
+	font-color: $font-color;
+}
+
+h1 {
+	font-size: 3em;
+	// font-family: ;
+}
+
+h2 {
+	font-size: 2em;
+}
+
+h3 {
+	font-size: 1.2em;
+}
+
+p {
+	text-align: center;
+	line-height: 150%;
+	text-size: $font-size;
+	font-color: $font-size;
+}

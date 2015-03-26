@@ -1,0 +1,67 @@
+.front {
+	text-align: center;
+
+	.img-holder {
+		position: relative;
+		top: 100vh;
+		margin: 0 auto;
+		width: 50vmin;
+		height: 50vmin;
+		overflow: hidden;
+		border-radius: 50%;
+		z-index: 1;
+		img {
+			transition: 0.3s;
+			width: 100%;
+			height: 100%;
+		}
+		.overlay {
+			transition: 0.3s;
+			position: absolute;
+			background-color: rgba(153, 93, 95, 0.8);
+			bottom: 0;
+			left: 0;
+			height: 0;
+			width: 100%;
+			overflow: hidden;
+			color: $font-color-light;
+			p {
+				@include vertical-align;
+				margin: 0 2vw;
+			}
+		}
+	}
+	.img-holder:hover {
+		img {
+			transform: scale(1.2);
+		}
+		.overlay {
+			height: 100%;
+		}
+	}
+	.social-media {
+		width: 100vw;
+		height: 7vh;
+		position: absolute;
+		top: 70vh;
+		a {
+			display: inline-block;
+			position: relative;
+			left: -70vw;
+			width: 7vh;
+			height: 7vh;
+			margin: 0 30px;
+			z-index: 1;
+			animation: rotateSocialMedia 1 ease-in-out 2s;
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+}
+
+@keyframes rotateSocialMedia {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(720deg);}
+}

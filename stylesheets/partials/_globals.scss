@@ -1,0 +1,24 @@
+.main-section {
+	height: $section-height;
+	width: 100vw;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(241,241,241,0.9);
+	overflow-y: scroll;
+}
+
+a {
+	text-decoration: none;
+}
+a:link {
+	color: $font-color;
+}
+a:visited {
+	color: $font-color;
+}
+a:hover {
+	text-decoration: underline;
+	color: $color1;
+	cursor: pointer;
+}

@@ -1,0 +1,20 @@
+[role="info"] {
+	height: $footer-height;
+	width: 100vw;
+	background-color: $footer-color;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	color: $font-color-light;
+	h3 {
+		display: inline-block;
+		margin-left: 5vw;
+		margin-right: 5vw;
+	}
+	a {
+		color: $font-color-light;	
+	}
+	a:hover {
+		color: $color3;
+	}
+}

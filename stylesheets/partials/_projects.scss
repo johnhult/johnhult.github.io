@@ -1,0 +1,63 @@
+.projects {
+	.cards {
+		margin: 0 auto;
+		width: 90vw;
+		text-align: center;
+		perspective: 5000px;
+	}
+
+	.card {
+		transition: transform 1s;
+		display: inline-block;
+		vertical-align: top;
+		margin: 0 2vw;
+		width: 400px;
+		height: 300px;
+		box-shadow: 5px 5px 15px $color4;
+		transform-style: preserve-3d;
+		animation: flipCardBack 1s ease-in-out 1 forwards;
+		.backside {
+			height: 100%;
+			width: 100%;
+			background-color: rgba(241,241,241,0.9);
+			transform: rotateY(180deg) translateZ(1px);
+			h3 {
+				margin: 0 10% 1em;
+				padding-top: 1em;
+			}
+			p {
+				margin: 0 10%;
+			}
+			a {
+				position: absolute;
+				bottom: 2em;
+				right: 2em;
+			}
+		} 
+	}
+
+	.card:hover {
+		animation: flipCard 1s ease-in-out 1 forwards;
+	}
+
+	.startuphack {
+		background: url(../../res/images/startuphack-card.jpg) center center no-repeat;
+		background-size: cover;
+	}
+
+	.enfo {
+		background: url(../../res/images/enfo-card.png) no-repeat;
+		background-size: 100% 100%;
+	}
+
+	@keyframes flipCard {
+		0% {transform: rotateY(0deg);}
+		30%	 {transform: rotateY(-20deg);}
+		100% {transform: rotateY(180deg);}
+	}
+	@keyframes flipCardBack {
+		0%	 {transform: rotateY(180deg);}
+		30%	 {transform: rotateY(200deg);}
+		100% {transform: rotateY(0deg);}
+	}
+}
