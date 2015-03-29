@@ -17,16 +17,27 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://platform.twitter.com/widgets.js"></script>
 	<script src="node_modules/bounce.js/bounce.min.js"></script>
+	<script src="scripts/snap.svg-min.js"></script>
 	<script src="scripts/main.js"></script>
 </head>
 <body>
 	<header role="navigation">
 		<ul class="top-nav">
-			<a class="front-nav" title="Back to the front! (it's a pun...)"><li><img src="res/images/homebutton-iamjohnhult.svg"></li></a>
-			<a class="about-nav" title="About me"><div class="overlay"></div><li>About</li></a>
-			<a class="projects-nav" title="My projects"><div class="overlay"></div><li>Projects</li></a>
-			<a class="art-nav" title="Different doodles"><div class="overlay"></div><li>"Art"</li></a>
-			<a class="contact-nav" title="Get in touch"><div class="overlay"></div><li>Contact</li></a>
+			<a class="front-nav" title="Back to the front! (it's a pun...)">
+				<li><img src="res/images/homebutton-iamjohnhult.svg"></li>
+			</a>
+			<a class="about-nav" title="About me">
+				<svg class="overlay" viewBox="0 0 64 64" preserveAspectRatio="none"><polygon points="0,0 32,0 32,0 64,0"></svg><li>About</li>
+			</a>
+			<a class="projects-nav" title="My projects">
+				<svg class="overlay" id="ol2" viewBox="0 0 64 64" preserveAspectRatio="none"><polygon points="0,0 32,0 32,0 64,0"></svg><li>Projects</li>
+			</a>
+			<a class="art-nav" title="Different doodles">
+				<svg class="overlay" id="ol3" viewBox="0 0 64 64" preserveAspectRatio="none"><polygon points="0,0 32,0 32,0 64,0"></svg><li>"Art"</li>
+			</a>
+			<a class="contact-nav" title="Get in touch">
+				<svg class="overlay" id="ol4" viewBox="0 0 64 64" preserveAspectRatio="none"><polygon points="0,0 32,0 32,0 64,0"></svg><li>Contact</li>
+			</a>
 		</ul>
 	</header>
 	<div class="roll-wrap">
@@ -345,15 +356,29 @@
 					</div>
 					<div class="card enfo">
 						<div class="backside">
-							<h3>Enfo - "nyttiga appar"</h3>
-							<p>Together with a colleague we designed the concept "nyttiga appar" from scratch. Imagery, logo, etc. We then designed and implemented a website and made a mobile application which companies can use as a "hub" for communication with the customers.</p>
-							<a href="http://zystems.github.io/nyttigaappar">"nyttiga appar"</a>
+							<h3>Enfo - "nyttigaappar"</h3>
+							<p>Together with a colleague we designed the concept "nyttigaappar" from scratch. Imagery, logo, etc. We then designed and implemented a website and made a mobile application which companies can use as a "hub" for communication with the customers.</p>
+							<a href="http://zystems.github.io/nyttigaappar">"nyttigaappar"</a>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="main-section art"><h1>Let's call it art...</h1></section>
-			<section class="main-section contact"><h1>Contact me</h1></section>
+			<section class="main-section art">
+				<h1>Let's call it art...</h1>
+				<h2>Sometimes I get into the zone and create "art". Here is the result.</h2>
+			</section>
+			<section class="main-section contact">
+				<div>
+					<h1>Contact me</h1>
+					<h2><a href="mailto:hello@iamjohnhult.com">hello@iamjohnhult.com</a></h2>
+					<div class="social-media">
+						<a class="twitter" href="https://twitter.com/intent/follow?screen_name=iamjohnhult" title="Twitter"><img src="res/images/social-media-icons-01.svg"></a>
+						<a class="facebook" href="https://www.facebook.com/johnhult1" title="Facebook"><img src="res/images/social-media-icons-02.svg"></a>
+						<a class="linkedin" href="se.linkedin.com/in/iamjohnhult" title="LinkedIn"><img src="res/images/social-media-icons-03.svg"></a>
+						<a class="github" href="https://github.com/johnhult" title="GitHub"><img src="res/images/social-media-icons-04.svg"></a>
+					</div>
+				</div>
+			</section>
 		</div>
 	</div>
 	<footer role="info">

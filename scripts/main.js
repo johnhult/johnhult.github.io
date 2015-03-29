@@ -49,11 +49,49 @@ $(document).ready(function() {
   			unscaleSocial.applyTo($(this));
   		}
   	});
+
+    //On top-nav hover we animate SVG
+    var snapAnim;
+    var keepAnim;
+    $('.top-nav>a').on({
+      mouseenter: function() {
+        keepAnim = true;
+        var svg = $(this).find('polygon')[0];
+        console.log(svg);
+        snapAnim = Snap(svg);
+        snapAnim.animate({
+          'points': '0,0 32,64 32,64 64,0'
+        }, 500, mina.elastic, function () {
+          if (keepAnim) {
+            snapAnim.animate({
+              'points': '0,0 0,64 32,64 64,0'
+            }, 500, mina.elastic, function () {
+              if (keepAnim) {
+                snapAnim.animate({
+                  'points': '0,0 0,64 64,64 64,0'
+                }, 500, mina.elastic);
+              };
+            });
+          };
+        });
+      }, 
+      mouseleave: function () {
+        keepAnim = false;
+        var svg = $(this).find('polygon')[0];
+        console.log(svg);
+        // snapAnim = Snap(svg);
+        snapAnim.animate({
+          'points': '0,0 32,0 32,0 64,0'
+        }, 500, mina.elastic);
+      }
+    });
+
+    //On top-nav press we spin to right page
   	$('.top-nav>a').on('click', function() {
   		var whereTo = $(this).children().eq(0).context.className;
   		whereTo = whereTo.substr(0, whereTo.lastIndexOf('-'));
   		spinTo(whereTo);
-  	})
+  	});
   	$('.about-nav').on('click', function() {
   		spinTo('about');
   	});

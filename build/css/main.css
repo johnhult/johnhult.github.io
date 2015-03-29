@@ -3,6 +3,9 @@
 Vertical align
 */
 /*
+Horizontal align
+*/
+/*
 clearfix
 */
 h1, h2, h3 {
@@ -102,7 +105,7 @@ a:hover {
       float: left;
       height: 100%;
       width: 10vw;
-      text-align: center; }
+      text-align: left; }
     [role="navigation"] ul a:hover {
       text-decoration: none; }
     [role="navigation"] ul .front-nav:hover img {
@@ -115,12 +118,11 @@ a:hover {
           -ms-transform: translateY(-50%);
               transform: translateY(-50%);
       font-size: 1.2em;
-      z-index: 1; }
+      z-index: 1;
+      text-align: center; }
     [role="navigation"] ul .overlay {
-      -webkit-transition: 0.2s;
-              transition: 0.2s;
-      background-color: #9a5d5d;
-      height: 0;
+      fill: #9a5d5d;
+      height: 100%;
       width: 10vw;
       position: absolute;
       top: 0; }
@@ -353,6 +355,27 @@ a:hover {
   100% {
     -webkit-transform: rotateY(0deg);
             transform: rotateY(0deg); } }
+.contact div {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%); }
+  .contact div h1 {
+    margin-top: 0; }
+  .contact div .social-media {
+    text-align: center;
+    margin-top: 10vh; }
+    .contact div .social-media a {
+      display: inline-block;
+      margin: 0 30px;
+      z-index: 1;
+      -webkit-animation: rotateSocialMedia 1 ease-in-out 2s;
+              animation: rotateSocialMedia 1 ease-in-out 2s; }
+      .contact div .social-media a img {
+        width: 100%;
+        height: 100%; }
+
 [role="info"] {
   height: 8vh;
   width: 100vw;
