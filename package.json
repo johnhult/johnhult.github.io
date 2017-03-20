@@ -1,0 +1,40 @@
+{
+  "name": "iamjohnhult.com",
+  "version": "1.0.0",
+  "description": "john hult personal website",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "connect-livereload": "^0.6.0",
+    "es6-promise": "^4.0.5",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "navigo": "^4.0.1",
+    "tiny-lr": "^1.0.3",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnhult/johnhult.github.io.git"
+  },
+  "keywords": [
+    "web",
+    "ui",
+    "ux",
+    "design"
+  ],
+  "author": "john hult",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnhult/johnhult.github.io/issues"
+  },
+  "homepage": "https://github.com/johnhult/johnhult.github.io#readme"
+}

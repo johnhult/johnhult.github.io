@@ -1,0 +1,78 @@
+.home-content-wrapper {
+	span, p {
+		font-size: 1.8rem;
+	}
+	.bigass-header {
+		display: block;
+		font-size: 7rem;
+		font-weight: 900;
+		text-shadow: 0 4px 10px rgba(black, 0.8);
+	}
+	.add-underline {
+		font-size: inherit;
+		background-position: 0 1.2em;
+		background-size: 1.2rem 1.2rem;
+		background-repeat: repeat-x;
+		background-image: linear-gradient(to bottom, transparent 50%, $c3 50%);
+	}
+	.second-ticker {
+		width: 105px;
+		display: inline-block;
+		text-align: center;
+	}
+	.bio-btn {
+		display: inline-block;
+		color: $c3;
+		font-size: 1.6rem;
+		margin-top: 20px;
+		padding: 5px 0;
+		position: relative;
+	}
+	.bio-btn:hover {
+		&::after {
+			animation: none;
+			transform-origin: 0% 50%;
+			opacity: 1;
+			transform: scaleX(1);
+		}
+	}
+	.bio-btn::after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 4px;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		opacity: 0;
+		background-color: $c3;
+		transform-origin: 0% 50%;
+		transition: 0.4s;
+		transform: scaleX(0.2) translateX(0%);
+
+		animation: btnSwish 6s infinite 2s linear forwards;
+		@keyframes btnSwish {
+			0% {
+				opacity: 0;
+				transform-origin: 0% 50%;
+				transform: scaleX(0.1);
+			}
+			2.5% {
+				opacity: 1;
+			}
+			7.5% {
+				opacity: 1;
+			}
+			10% {
+				opacity: 0;
+				transform-origin: 100% 50%;
+				transform: scaleX(0.1);
+			}
+			100% {
+				opacity: 0;
+				transform-origin: 100% 50%;
+				transform: scaleX(0.2) translateX(0%);
+			}
+		}
+	}
+}

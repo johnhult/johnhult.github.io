@@ -1,0 +1,1 @@
+Navigo = require('navigo');
