@@ -1,14 +1,21 @@
+// npm install gulp gulp-sass gulp-autoprefixer gulp-clean-css gulp-rename express connect-livereload tiny-lr es6-promise --save-dev
+
+// Fix for autoprefixer
+require('es6-promise').polyfill();
+
 // Adding packages
 //==================================================
-var 	gulp           = require('gulp'),
-      sass           = require('gulp-ruby-sass'),
-      autoprefixer   = require('gulp-autoprefixer'),
-      minifycss      = require('gulp-minify-css'),
-      rename         = require('gulp-rename');
+var   gulp                      = require('gulp'),
+      sass                      = require('gulp-sass'),
+      autoprefixer              = require('gulp-autoprefixer'),
+      minifycss                 = require('gulp-clean-css'),
+      rename                    = require('gulp-rename'),
+      browserify                = require('browserify'),
+      source                    = require('vinyl-source-stream')
 
 // Paths
 //===========================
-var paths = { 
+var paths = {
 };
 
 // Adding tasks
@@ -18,8 +25,9 @@ var paths = {
 gulp.task('express', function() {
   var express = require('express');
   var app = express();
-  app.use(require('connect-livereload')({port: 4002}));
+  app.use(require('connect-livereload')({port: 4001}));
   app.use(express.static(__dirname));
+  app.use((req, res) => res.sendFile(`${__dirname}/index.html`));
   app.listen(4000);
 });
 
@@ -27,11 +35,13 @@ gulp.task('express', function() {
 var tinylr;
 gulp.task('livereload', function() {
   tinylr = require('tiny-lr')();
-  tinylr.listen(4002);
+  tinylr.listen(4001);
 });
 
 function notifyLiveReload(event) {
   var fileName = require('path').relative(__dirname, event.path);
+  console.log(event.path.substr(event.path.lastIndexOf("/"), event.path.length) + ' changed. Reloading.');
+
 
   tinylr.changed({
     body: {
@@ -42,7 +52,8 @@ function notifyLiveReload(event) {
 
 // Minify and compile SASS to css
 gulp.task('styles', function() {
-  return sass('stylesheets/main.scss')
+  return gulp.src('css/main.scss')
+  .pipe(sass())
   .on('error', function(err){
     console.error('Error!', err.message);
   })
@@ -53,17 +64,25 @@ gulp.task('styles', function() {
   .pipe(gulp.dest('build/css/'));
 });
 
+gulp.task('bundlemods', function() {
+  var bundleMods = browserify('./js/modules.js')
+  .bundle()
+  .on('error', console.error)
+  .pipe(source('modules.js'))
+  .pipe(gulp.dest('./build/js'));
+});
 
 //Watch
 gulp.task('watch', function() {
-  gulp.watch('stylesheets/**/*.scss', ['styles']);
+  gulp.watch('css/**/*.scss', ['styles']);
   gulp.watch('*.html', notifyLiveReload);
+  gulp.watch('partials/*.html', notifyLiveReload);
+  gulp.watch('js/*.js', notifyLiveReload);
+  gulp.watch('js/**/*.js', notifyLiveReload);
   gulp.watch('build/css/*.css', notifyLiveReload);
 });
 
 
 // Run all
 //=============================================================================
-gulp.task('default', ['express', 'styles', 'express', 'livereload', 'watch'], function() {
-
-});
+gulp.task('default', ['express', 'styles', 'livereload', 'watch'], function() {});
