@@ -1,122 +1,169 @@
 var router;
-var navigoResolve;
-var currentPage = 'home';
-var overlayCurrentlyOpen = false;
 var rootUrl = '';
 var useHash = false;
 
+var currentPage;
+var currentMainNavNumber = 0;
+var pageUnderOverlay;
+var overlayCurrentlyOpen;
+var mainNavArrowsEventAdded = false;
+
+var mainNav = [
+	'home',
+	'work',
+	'blog'
+];
+
 function initRouting() {
 	router = new Navigo(rootUrl, useHash);
-	navigoResolve = router.resolve.bind(router);
 
-	router.on(function () {
-		console.log('default');
-		// showCurrentNavigation('home');
-		updateCurrentPage();
-		setTimeout(function() {
-			runHome()
-		}, 600);
+	router.on({
+		'': function() {
+			console.log('/ (home)');
+			mainNavigation(0);
+			setTimeout(function() {
+				runHome();
+			}, 600);
+		},
+		'/home': function() {
+			router.navigate('');
+		},
+		'/bio': function() {
+			console.log('bio');
+			openOverlay('', 'bio');
+			runBio();
+		},
+		'/work': function() {
+			console.log('work');
+			mainNavigation(1);
+			setTimeout(function() {
+				runWork();
+			}, 600);
+		},
+		'/work/:id': function(params) {
+			console.log(params.id);
+			if(params.id) {
+				openOverlay('work', 'work/' + params.id);
+				runWorkId(params.id);
+			}
+		},
+		'/blog': function() {
+			console.log('blog');
+			mainNavigation(2);
+			setTimeout(function() {
+				runBlog();
+			}, 600);
+		}
 	})
-	.resolve();
-
-	router.on('/', function() {
-		console.log('/ (home)');
-		updateCurrentPage();
-		// showCurrentNavigation('home');
-		setTimeout(function() {
-			runHome()
-		}, 600);
+	.notFound(function() {
+		console.log('page not found');
 	})
-	.resolve();
-
-	router.on('/bio', function() {
-		console.log('bio');
-		updateCurrentPage(true);
-		runBio();
-	})
-	.resolve();
-
-	router.on('/work', function() {
-		console.log('work');
-		updateCurrentPage();
-		// showCurrentNavigation('work');
-		setTimeout(function() {
-			runWork()
-		}, 600);
-	})
-	.resolve();
-
-	router.on('/blog', function() {
-		console.log('blog');
-		updateCurrentPage();
-		// showCurrentNavigation('blog');
-		setTimeout(function() {
-			runBlog()
-		}, 600);
-	})
-	.resolve();
-
-
-	router.notFound(function() {
-		run404();
-	});
-	
 }
 
-function updateCurrentPage(openOverlay) {
-	
+function addMainArrowNav() {
+	$(document).keydown(function(e) {
+	    switch((e.keyCode ? e.keyCode : e.which)){
+	        //case 13: // Enter
+	        //case 27: // Esc
+	        //case 32: // Space
+	        case 37:
+	        	// Left Arrow
+	        	if(currentMainNavNumber === 1) {
+	        		decWork();
+	        	}
+	        	break;
+	        case 38:
+	        	// Up Arrow
+	        	if(!overlayCurrentlyOpen) {
+	        		decMainNav();
+	        	}
+	        	break;
+	        case 39:
+	        	// Right Arrow
+	        	if(currentMainNavNumber === 1) {
+	        		incWork();
+	        	}
+	        	break;
+	        case 40:
+	        	// Down Arrow
+	        	if(!overlayCurrentlyOpen) {
+	        		incMainNav();
+	        	}
+        		break;
+	    }
+	});
+}
+
+function decMainNav() {
+	var newPageNr = (currentMainNavNumber <= 0 ? mainNav.length-1 : currentMainNavNumber-1);
+	router.navigate('/' + mainNav[newPageNr]);
+
+}
+function incMainNav() {
+	var newPageNr = (currentMainNavNumber >= mainNav.length-1 ? 0 : currentMainNavNumber+1);
+	router.navigate('/' + mainNav[newPageNr]);
+}
+
+// Changing the main content routes
+// newRoute: navigation pressed
+function mainNavigation(routeNr) {
+
+	if (!mainNavArrowsEventAdded) {
+		addMainArrowNav();
+		mainNavArrowsEventAdded = true;
+	}
 
 	// Save current route in order to animate out content
-	var oldPage = currentPage;
+	var oldPageNr = currentMainNavNumber;
 
-	// Set / to home and set new currentPage
-	routeName = window.location.pathname;
-	currentPage = (routeName === '/') ? 'home' : routeName.split('/').pop();
+	// Set new page and page nr
+	currentMainNavNumber = routeNr;
+	currentPage = mainNav[currentMainNavNumber];
 
-	if (oldPage != currentPage) {
-		if (!openOverlay) {
-
-			console.log('CURRENTLY NOT OPENING');
-
-			// If an overlay is currently open we close it
-			if (overlayCurrentlyOpen) {
-				console.log('BUT THE OVERLAY IS OPEN AND WILL BE CLOSED');
-				animateOutOverlay();
-				overlayCurrentlyOpen = false;
-			}
-			else {
-				console.log('ONLY MAIN NAVIGATION');
-
-				// Animate out the old content
-				animateOutContent(oldPage);
-				
-				// Switch menu
-				showCurrentNavigation(currentPage);
-			}
-
-		}
-		else {
-			console.log('OPENING THAT SHIT');
-			overlayCurrentlyOpen = true;
-		}
+	console.log('currentMainNavNumber: '+ currentMainNavNumber + '\ncurrentPage: ' + currentPage + '\noldPageNr: ' + oldPageNr);
+	// Only switch if we actually change page
+	if (oldPageNr != currentMainNavNumber) {
+		animateOutContent();
+		highlightMenu(mainNav[currentMainNavNumber]);
 	}
 }
 
-function animateOutContent(oldPage) {
+// Set states for opening overlays. Animations handled in CSS.
+function openOverlay(pageUnder, overlayPage) {
+	currentPage = overlayPage;
+	pageUnderOverlay = pageUnder;
+	overlayCurrentlyOpen = true;
+	removeMainNavEventHandlers();
+}
+
+// Close overlay
+function closeOverlay() {
+	animateOutOverlay();
+	overlayCurrentlyOpen = false;
+	router.navigate(path='/' + pageUnderOverlay, absolute=false);
+}
+
+function animateOutContent() {
 	var content = $('.content-holder').children();
 	content.addClass('animate-out');
 }
 
 // For setting menu highlight
-function showCurrentNavigation(newPage) {
+function highlightMenu() {
 	$('.current-page').removeClass('current-page');
-	$('.' + newPage + '-navigation').addClass('current-page');
+	$('.' + mainNav[currentMainNavNumber] + '-navigation').addClass('current-page');
 }
 
 function animateInOverlay(htmlData) {
 	$.get(htmlData, function(data) {
 		$('.overlay-page').css('top', '0');
 		$('.overlay-page').css('pointer-events', 'auto');
+		setTimeout(function() {
+			$('.overlay-page').prepend('<div class="close-overlay"><div class="before-close"></div><div class="after-close"></div></div>');
+			$('.close-overlay').on('click', function () {
+				closeOverlay();
+			});
+		}, 1000);
 		$('.overlay-page').append('<div class="first-wave-overlay abs-fill"></div>');
 		$('.overlay-page').append('<div class="overlay-content abs-fill"></div>');
 		$('.overlay-content').html(data);
@@ -125,8 +172,9 @@ function animateInOverlay(htmlData) {
 }
 function animateOutOverlay() {
 
-	// Remove overlay pointer events instantly
+	// Remove overlay pointer events and close button instantly
 	$('.overlay-page').css('pointer-events', 'none');
+	$('.close-overlay').remove();
 
 	// Add classes that animate out overlays
 	$('.overlay-content').addClass('anim-out-overlay-content');

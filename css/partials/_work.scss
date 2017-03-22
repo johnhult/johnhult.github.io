@@ -27,7 +27,9 @@
 		li {
 			display: inline-block;
 			margin-right: 5px;
-			background-color: rgba(#00fff2, 0.2);
+			// background-color: rgba(#00fff2, 0.2);
+			background-color: rgba(white, 0.2);
+			// border: 1px solid rgba(white, 0.2);
 			border-radius: 3px;
 			padding: 5px 10px;
 		}

@@ -61,6 +61,7 @@ function setupPixi() {
         // Add alpha fade in and add contents
         firstAnimateBgIn();
         addContents();
+        router.resolve();
 
     }
 }

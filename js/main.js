@@ -27,27 +27,36 @@ $(document).ready(function() {
 });
 
 function addContents() {
-	setTimeout(function () {
-		addNavmenu();
-		addContact();
-	}, 600);
-	// addMainContent(currentPage);
+	addNavmenu();
+	addContact();
 }
 
 function addNavmenu() {
 	$.get('partials/navmenu.html', function(data) {
+		// Add the navmenu to body and add click events
 		$('body').prepend(data);
-		$('.nav-menu li').each(function(index) {
-			var obj = $(this);
-			setTimeout(function() {
-				moveIntoPosition(obj);
-			}, (index * 400));
-			if (index === $('.nav-menu li').length-1) {
-				setTimeout(function() {
-					moveIntoPosition($('.nav-arrows'));
-				}, ((index+1) * 400));
-			}
+		$('.nav-up').on('click', function() {
+			decMainNav();
 		});
+		$('.nav-down').on('click', function() {
+			incMainNav();
+		});
+
+		// Set main navigation to correct highlight since it's the first time loading
+		highlightMenu(currentPage);
+		setTimeout(function() {
+			$('.nav-menu li').each(function(index) {
+				var obj = $(this);
+				setTimeout(function() {
+					moveIntoPosition(obj);
+				}, (index * 400));
+				if (index === $('.nav-menu li').length-1) {
+					setTimeout(function() {
+						moveIntoPosition($('.nav-arrows'));
+					}, ((index+1) * 400));
+				}
+			});
+		}, 600);
 		updateLinks();
 	});
 }
@@ -59,23 +68,23 @@ function addContact() {
 	});
 }
 
-function addMainContent() {
-	console.log('add mian content');
-	switch (currentPage) {
-		case currentPage === 'home':
-			runHome();
-			break;
-		case currentPage === 'work':
-			runWork();
-			break;
-		case currentPage === 'blog':
-			runBlog();
-			break;
-		default:
-			runHome();
-			break;
-	}
-}
+// function addMainContent() {
+// 	console.log('add main content');
+// 	switch (currentPage) {
+// 		case currentPage === 'home':
+// 			runHome();
+// 			break;
+// 		case currentPage === 'work':
+// 			runWork();
+// 			break;
+// 		case currentPage === 'blog':
+// 			runBlog();
+// 			break;
+// 		default:
+// 			runHome();
+// 			break;
+// 	}
+// }
 
 
 // e is the $-obj that is getting animated in

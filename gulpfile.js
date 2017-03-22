@@ -11,7 +11,9 @@ var   gulp                      = require('gulp'),
       minifycss                 = require('gulp-clean-css'),
       rename                    = require('gulp-rename'),
       browserify                = require('browserify'),
-      source                    = require('vinyl-source-stream')
+      source                    = require('vinyl-source-stream'),
+      historyApiFallback        = require('connect-history-api-fallback')
+
 
 // Paths
 //===========================
@@ -25,9 +27,9 @@ var paths = {
 gulp.task('express', function() {
   var express = require('express');
   var app = express();
+  app.use(historyApiFallback());
   app.use(require('connect-livereload')({port: 4001}));
   app.use(express.static(__dirname));
-  app.use((req, res) => res.sendFile(`${__dirname}/index.html`));
   app.listen(4000);
 });
 
@@ -64,6 +66,7 @@ gulp.task('styles', function() {
   .pipe(gulp.dest('build/css/'));
 });
 
+// Take all npm modules I need and make them available in project
 gulp.task('bundlemods', function() {
   var bundleMods = browserify('./js/modules.js')
   .bundle()

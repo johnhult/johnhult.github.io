@@ -43,14 +43,65 @@
 	}
 }
 
+.more-btn {
+	display: inline-block;
+	letter-spacing: 5px;
+	color: $c3;
+	font-size: 1.6rem;
+	margin-top: 20px;
+	padding: 5px 0;
+	position: relative;
+}
+.more-btn:hover {
+	letter-spacing: 8px;
+}
+.more-btn::after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 4px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	background-color: $c3;
+	transform-origin: 0% 50%;
+	transition: 0.4s;
+	transform: scaleX(0.2) translateX(0%);
+
+	animation: btnSwish 6s infinite 2s linear forwards;
+	@keyframes btnSwish {
+		0% {
+			opacity: 0;
+			transform-origin: 0% 50%;
+			transform: scaleX(0.1);
+		}
+		2.5% {
+			opacity: 1;
+		}
+		7.5% {
+			opacity: 1;
+		}
+		10% {
+			opacity: 0;
+			transform-origin: 100% 50%;
+			transform: scaleX(0.1);
+		}
+		100% {
+			opacity: 0;
+			transform-origin: 100% 50%;
+			transform: scaleX(0.2) translateX(0%);
+		}
+	}
+}
+
 .overlay-page {
-	// background-color: lighten(black, 10%);
 	top: initial;
 	z-index: 500;
 }
 
 .first-wave-overlay {
-	background-color: white;
+	background-color: $c3;
 	width: 100vw;
 	height: 100vh;
 	z-index: 600;
@@ -81,8 +132,10 @@
 .overlay-content {
 	background-color: lighten(black, 10%);
 	// box-shadow: 0 0 20px rgba(black, 0.4);
+	overflow-x: hidden;
+	overflow-y: auto;
 	width: 100vw;
-	min-height: 100vh;
+	height: 100vh;
 	z-index: 700;
 	margin: 0 auto;
 	transform: translateY(100vh);
@@ -105,6 +158,66 @@
 		}
 		100% {
 			transform: translateY(100vh);
+		}
+	}
+}
+
+.close-overlay {
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	position: fixed;
+	top: 40px;
+	left: 0;
+	right: 0;
+	z-index: 800;
+	animation: opaToOne 1 1s forwards;
+	cursor: pointer;
+	.before-close, .after-close {
+		width: 30px;
+		height: 2px;
+		position: absolute;
+		top: 14px;
+		left: 0;
+		&::before {
+			content: '';
+			display: block;
+			width: 100%;
+			height: 100%;
+			background-color: $c3;
+		}
+	}
+	.before-close {
+		transform: rotate(45deg);
+	}
+	.after-close {
+		transform: rotate(-45deg);
+	}
+
+}
+.close-overlay:hover {
+	.before-close::before {
+		animation: exitBtnAnimation 1 0.4s 0.2s linear forwards;
+	}
+	.after-close::before {
+		animation: exitBtnAnimation 1 0.4s linear forwards;
+	}
+	@keyframes exitBtnAnimation {
+		0% {
+			transform-origin: 0% 0%;
+			transform: scaleX(1);
+		}
+		49.9999% {
+			transform-origin: 0% 0%;
+			transform: scaleX(0);
+		}
+		50% {
+			transform-origin: 100% 0%;
+			transform: scaleX(0);
+		}
+		100% {
+			transform-origin: 100% 0%;
+			transform: scaleX(1);
 		}
 	}
 }

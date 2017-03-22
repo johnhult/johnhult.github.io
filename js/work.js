@@ -1,7 +1,7 @@
 var works = [
 	'adclouds',
-	'gbgstartup',
 	'gleeson',
+	'gbgstartup',
 	'enfo'
 ]
 
@@ -10,7 +10,7 @@ var currentWork = 0;
 function runWork() {
 	$.get('partials/work.html', function(data) {
 		$('.content-holder').html(data);
-		setCurrentWork();
+		renderCurrentWorkBox();
 		updateLinks();
 		addWorkNav();
 	});
@@ -21,11 +21,11 @@ function addWorkNav() {
 	$('.prev-btn').on('click', decWork);
 }
 
-function setCurrentWork() {
+function renderCurrentWorkBox() {
 	$('.work-box').css({'opacity': 0, 'pointer-events': 'none'});
 	var currentWorkObj = $('.' + works[currentWork] + '-work');
 	console.log(currentWorkObj);
-	currentWorkObj.css({'opacity': 1, 'pointer-events': 'default'});
+	currentWorkObj.css({'opacity': 1, 'pointer-events': 'auto'});
 }
 
 function incWork() {
@@ -36,6 +36,5 @@ function decWork() {
 }
 function setWorkNumber(number) {
 	currentWork = number < 0 ? (works.length-1) : (number%works.length);
-	console.log(currentWork);
-	setCurrentWork();
+	renderCurrentWorkBox();
 }
