@@ -1,11 +1,116 @@
+// Needs to be added to content-holder because of fixed pos
+.work-nav-btn {
+	font-size: 4rem;
+	position: fixed;
+	top: 50%;
+	z-index: 700;
+	transform: translateY(-50%);
+	display: inline-block;
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	.inner-work-nav-arrow {
+		width: 30px;
+		height: 2px;
+		position: relative;
+		top: 14px;
+		left: 0;
+		background-color: white;
+		transition: 0.4s;
+	}
+	&::before, &::after {
+		content: '';
+		display: block;
+		width: 10px;
+		height: 2px;
+		top: 14px;
+		position: absolute;
+		background-color: white;
+		transition: 0.4s;
+	}
+	&:hover {
+		.inner-work-nav-arrow {
+			background-color: $c3;
+		}
+		&::before, &::after {
+			background-color: $c3;
+		}
+	}
+}
+.prev-btn {
+	left: 85px;
+	.inner-work-nav-arrow {
+		animation: aliveArrows 4s 3.2s infinite forwards linear;
+	}
+	&::before, &::after {
+		left: 0;
+		transform-origin: 0% 50%;
+	}
+	&::before {
+		transform: rotate(45deg);
+	}
+	&::after {
+		transform: rotate(-45deg);
+	}
+}
+.next-btn {
+	left: 885px;
+	.inner-work-nav-arrow {
+		animation: aliveArrows 4s infinite forwards reverse linear;
+	}
+	&::before, &::after {
+		right: 0;
+		transform-origin: 100% 50%;
+	}
+	&::before {
+		transform: rotate(45deg);
+	}
+	&::after {
+		transform: rotate(-45deg);
+	}
+}
+@keyframes aliveArrows {
+	0% {
+		transform-origin: 0% 50%;
+		transform: scaleX(1);
+	}
+	10% {
+		transform-origin: 0% 50%;
+		transform: scaleX(0);
+	}
+	10.0000001% {
+		transform-origin: 100% 50%;
+	}
+	20% {
+		transform-origin: 100% 50%;
+		transform: scaleX(1);
+	}
+	100% {
+		transform-origin: 100% 50%;
+		transform: scaleX(1);
+	}
+}
+
 .work-content-wrapper {
-	
-	.inner-flex-wrap {
-		height: 100%;
-		// position: relative;
+
+	.work-nav-list {
 		display: flex;
-		flex-flow: column;
-		justify-content: center;
+		flex-direction: column;
+		transform: translateY(-50%);
+	}
+	.work-nav-indicator {
+		width: 20px;
+		height: 0;
+		flex: 1 0 100%;
+		background-color: white;
+		cursor: pointer;
+		&:not(:last-child) {
+			margin-right: 20px;
+		}
+		&:hover {
+			background-color: blue;
+		}
 	}
 
 	.work-box {
@@ -33,5 +138,40 @@
 			border-radius: 3px;
 			padding: 5px 10px;
 		}
+	}
+}
+
+
+.work-content {
+	padding: 100px 50px;
+	width: 700px;
+	max-width: 100%;
+	margin: 0 auto;
+	h1 {
+		font-size: 4rem;
+		line-height: 2;
+		margin-bottom: 40px;
+	}
+	h2 {
+		font-size: 2rem;
+		line-height: 2;
+		margin-bottom: 40px;
+	}
+	p {
+		font-size: 1.6rem;
+		line-height: 2.4;
+	}
+	p:not(:last-child) {
+		margin-bottom: 40px;
+	}
+	.link-work {
+		color: $c3;
+		letter-spacing: 2px;
+		&:hover {
+			letter-spacing: 4px;
+		}
+	}
+	.extra-link-info {
+		display: block;
 	}
 }

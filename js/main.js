@@ -29,10 +29,12 @@ $(document).ready(function() {
 function addContents() {
 	addNavmenu();
 	addContact();
+	addRotateMouse();
 }
 
 function addNavmenu() {
 	$.get('partials/navmenu.html', function(data) {
+
 		// Add the navmenu to body and add click events
 		$('body').prepend(data);
 		$('.nav-up').on('click', function() {
@@ -65,6 +67,11 @@ function addContact() {
 	$.get('partials/contact.html', function(data) {
 		$('body').prepend(data);
 		moveIntoPosition($('.mail-contact'), {'transform': 'translate(0) rotate(90deg)', 'opacity': 1});
+	});
+	$.get('partials/socialmedia.html', function(data) {
+		$('body').prepend(data);
+		moveIntoPosition($('.social-media'));
+		toSvg();
 	});
 }
 
@@ -117,6 +124,25 @@ $(window).focus(function() {
 $(window).blur(function() {
     $('head title').html('Please come back!');
 });
+
+function addRotateMouse() {
+	$(document).mousemove(function(event) {
+		rotateDiv(event);
+	});
+}
+
+function rotateDiv(event) {
+    var x = event.clientX;
+    var y = event.clientY;
+    var midpointOfElementX = ($('.follow-mouse-wrapper').offset().left + ($('.follow-mouse-wrapper').width()/2));
+    var midpointOfElementY = ($('.follow-mouse-wrapper').offset().top + ($('.follow-mouse-wrapper').height()/2));
+    var posX = x - midpointOfElementX;
+    var posY = y - midpointOfElementY;
+	var valX = (posX / midpointOfElementX) * 10;
+	var valY = (posY / midpointOfElementY) * 10;
+	var logo = $('.follow-mouse-wrapper');
+	logo.css({transform: "rotateY(" + valX + "deg) rotateX(" + -valY + "deg)"});
+}
 
 
 

@@ -4,9 +4,11 @@ var useHash = false;
 
 var currentPage;
 var currentMainNavNumber = 0;
+var oldPageNr;
 var pageUnderOverlay;
 var overlayCurrentlyOpen;
 var mainNavArrowsEventAdded = false;
+var chillTheFuckDown = false;
 
 var mainNav = [
 	'home',
@@ -18,13 +20,6 @@ function initRouting() {
 	router = new Navigo(rootUrl, useHash);
 
 	router.on({
-		'': function() {
-			console.log('/ (home)');
-			mainNavigation(0);
-			setTimeout(function() {
-				runHome();
-			}, 600);
-		},
 		'/home': function() {
 			router.navigate('');
 		},
@@ -52,6 +47,13 @@ function initRouting() {
 			mainNavigation(2);
 			setTimeout(function() {
 				runBlog();
+			}, 600);
+		},
+		'': function() {
+			console.log('/ (home)');
+			mainNavigation(0);
+			setTimeout(function() {
+				runHome();
 			}, 600);
 		}
 	})
@@ -114,15 +116,15 @@ function mainNavigation(routeNr) {
 	}
 
 	// Save current route in order to animate out content
-	var oldPageNr = currentMainNavNumber;
+	oldPageNr = currentMainNavNumber;
 
 	// Set new page and page nr
 	currentMainNavNumber = routeNr;
 	currentPage = mainNav[currentMainNavNumber];
 
-	console.log('currentMainNavNumber: '+ currentMainNavNumber + '\ncurrentPage: ' + currentPage + '\noldPageNr: ' + oldPageNr);
 	// Only switch if we actually change page
 	if (oldPageNr != currentMainNavNumber) {
+		switchMainNavBg();
 		animateOutContent();
 		highlightMenu(mainNav[currentMainNavNumber]);
 	}
@@ -133,7 +135,6 @@ function openOverlay(pageUnder, overlayPage) {
 	currentPage = overlayPage;
 	pageUnderOverlay = pageUnder;
 	overlayCurrentlyOpen = true;
-	removeMainNavEventHandlers();
 }
 
 // Close overlay
@@ -144,7 +145,7 @@ function closeOverlay() {
 }
 
 function animateOutContent() {
-	var content = $('.content-holder').children();
+	var content = $('.content-holder').children().first();
 	content.addClass('animate-out');
 }
 

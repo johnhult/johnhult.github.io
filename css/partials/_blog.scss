@@ -1,0 +1,22 @@
+.blog-content-wrapper {
+		.latest-info {
+			font-size: 1.8rem;
+		}
+		.blog-header {
+			font-size: 3rem;
+			font-weight: 900;
+		}
+
+		.blog-tags {
+			margin-top: 20px;
+			li {
+				display: inline-block;
+				margin-right: 5px;
+				// background-color: rgba(#00fff2, 0.2);
+				background-color: rgba(white, 0.2);
+				// border: 1px solid rgba(white, 0.2);
+				border-radius: 3px;
+				padding: 5px 10px;
+			}
+		}
+}

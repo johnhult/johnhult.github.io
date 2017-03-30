@@ -1,3 +1,3 @@
 function runBio() {
-	animateInOverlay('partials/bio.html');
+	animateInOverlay('/partials/bio.html');
 }
