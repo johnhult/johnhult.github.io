@@ -2,11 +2,16 @@
 	span, p {
 		font-size: 1.8rem;
 	}
+	.follow-mouse-wrapper {
+		perspective: 1000px;
+		transform-style: preserve-3d;
+	}
 	.bigass-header {
 		display: block;
 		font-size: 7rem;
 		font-weight: 900;
 		text-shadow: 0 4px 10px rgba(black, 0.8);
+		transform: translateZ(50px);
 	}
 	.add-underline {
 		font-size: inherit;

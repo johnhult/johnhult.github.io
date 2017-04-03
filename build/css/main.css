@@ -829,11 +829,19 @@ img {
 .home-content-wrapper span, .home-content-wrapper p {
   font-size: 1.8rem; }
 
+.home-content-wrapper .follow-mouse-wrapper {
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d; }
+
 .home-content-wrapper .bigass-header {
   display: block;
   font-size: 7rem;
   font-weight: 900;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); }
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  -webkit-transform: translateZ(50px);
+          transform: translateZ(50px); }
 
 .home-content-wrapper .add-underline {
   font-size: inherit;
